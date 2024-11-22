@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger
+name: Deploy React App
 
 on:
   push:
@@ -6,32 +6,41 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Node.js and Dependencies
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - run: npm install
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build React App
-      run: npm run build
+      # Step 4: Build the React app
+      - name: Build React App
+        run: npm run build
 
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@v0.1.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: 65002
-        script: |
-          rm -rf ~/public_html/react-app/*
-          mkdir -p ~/public_html/react-app
-          scp -r build/* ~/public_html/react-app/
+      # Step 5: Verify the build folder exists
+      - name: Verify build folder
+        run: ls -al build
 
+      # Step 6: Deploy via SSH
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf ~/public_html/react-app/*
+            mkdir -p ~/public_html/react-app
+            scp -r build/* ~/public_html/react-app/
