@@ -29,7 +29,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 22
+        port: 65002
         script: |
           rm -rf ~/public_html/react-app/*
           mkdir -p ~/public_html/react-app
