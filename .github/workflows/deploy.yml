@@ -40,6 +40,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
+          local-dir: build/
+          server-dir: public_html/
           script: |
             rm -rf ~/public_html/react-app/*
             mkdir -p ~/public_html/react-app
