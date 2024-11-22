@@ -42,5 +42,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             rm -rf ~/public_html/react-app/*
-            mkdir -p ~/public_html/react-app
+            mkdir -p ~/public_html/
             scp -r build/* ~/public_html/
