@@ -34,3 +34,7 @@ jobs:
           rm -rf ~/public_html/react-app/*
           mkdir -p ~/public_html/react-app
           scp -r build/* ~/public_html/react-app/
+          
+    - name: Clean npm cache
+      run: npm cache clean --force
+
