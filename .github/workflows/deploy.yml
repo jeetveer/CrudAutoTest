@@ -41,6 +41,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            rm -rf ~/public_html/react-app/*
+            rm -rf ~/public_html/*
             mkdir -p ~/public_html/
             scp -r build/* ~/public_html/
