@@ -29,12 +29,9 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        port: 65002
+        port: 22
         script: |
           rm -rf ~/public_html/react-app/*
           mkdir -p ~/public_html/react-app
           scp -r build/* ~/public_html/react-app/
-          
-    - name: Clean npm cache
-      run: npm cache clean --force
 
